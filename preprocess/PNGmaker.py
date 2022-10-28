@@ -34,8 +34,8 @@ def PNGmaker(x_axis, y_axis, z_axis, note, num):
     image.save(".\ACCELDataset\\png\\ONEPLUS 9\\number\\{}\\{}.png".format(note, num))
 
 
-def PNGmakers(x_axis, y_axis, z_axis, note):
+def PNGmakers(x_axis, y_axis, z_axis, note, start_num):
     length = len(x_axis)
     for i in range(0, length):
-        PNGmaker(x_axis[i], y_axis[i], z_axis[i], note, i)
+        PNGmaker(x_axis[i], y_axis[i], z_axis[i], note, i + start_num)
     print("png图片绘制完成")

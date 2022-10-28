@@ -10,9 +10,9 @@ import librosa.display
 import numpy as np
 from PNGmaker import PNGmakers
 
-
-if __name__ == "__main__":
-    f = open(".\ACCELDataset\\raw\\ONEPLUS 9\\number\\nine.txt", encoding="utf-8")
+def preprogress(marknum, start_num):
+    filename = "{}-2".format(marknum)
+    f = open("..\ACCELDataset\\raw\\ONEPLUS 9\\number\\{}.txt".format(filename), encoding="utf-8")
 
     time_axis = []
     x_axis = []
@@ -66,4 +66,11 @@ if __name__ == "__main__":
     #display_word_wave(word_x_list, word_y_list, word_z_list)
     #display_word_spectrogram(word_z_list[0])
     #display_smooth(z_axis)
-    PNGmakers(word_x_list, word_y_list, word_z_list, 'nine')
+    PNGmakers(word_x_list, word_y_list, word_z_list, marknum, start_num)
+
+
+if __name__ == "__main__":
+    num_list = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+    for i in num_list:
+        preprogress(i, 100)
+        print(i)
