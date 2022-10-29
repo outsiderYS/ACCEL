@@ -13,7 +13,7 @@ from PNGmaker import PNGmakers
 
 def preprogress(marknum, calnum, start_num):
     filename = "{}-{}".format(marknum, calnum)
-    f = open("..\ACCELDataset\\raw\\ONEPLUS 9\\number\\{}.txt".format(filename), encoding="utf-8")
+    f = open("..\ACCELDataset\\raw\\ONEPLUS 9\\number\\{}\\{}.txt".format(marknum, filename), encoding="utf-8")
 
     time_axis = []
     x_axis = []
@@ -73,5 +73,5 @@ def preprogress(marknum, calnum, start_num):
 if __name__ == "__main__":
     num_list = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
     for i in num_list:
-        preprogress(i, 3, 200)
+        preprogress(i, 4, 300)
         print(i)
