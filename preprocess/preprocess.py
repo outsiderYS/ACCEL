@@ -10,8 +10,9 @@ import librosa.display
 import numpy as np
 from PNGmaker import PNGmakers
 
-def preprogress(marknum, start_num):
-    filename = "{}-2".format(marknum)
+
+def preprogress(marknum, calnum, start_num):
+    filename = "{}-{}".format(marknum, calnum)
     f = open("..\ACCELDataset\\raw\\ONEPLUS 9\\number\\{}.txt".format(filename), encoding="utf-8")
 
     time_axis = []
@@ -72,5 +73,5 @@ def preprogress(marknum, start_num):
 if __name__ == "__main__":
     num_list = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
     for i in num_list:
-        preprogress(i, 100)
+        preprogress(i, 3, 200)
         print(i)
