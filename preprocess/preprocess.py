@@ -73,5 +73,6 @@ def preprogress(marknum, calnum, start_num):
 if __name__ == "__main__":
     num_list = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
     for i in num_list:
-        preprogress(i, 4, 300)
+        preprogress(i, 30, 2900)
         print(i)
+

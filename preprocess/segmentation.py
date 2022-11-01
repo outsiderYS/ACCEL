@@ -16,7 +16,10 @@ def word_location(z_axis_filter):
         if z_axis_200_30[i] >= threshold and not flag:
             flag = True
             mark = i
-            couple.append(i - 100)
+            if i >= 100:
+                couple.append(i - 100)
+            else:
+                couple.append(i)
         elif z_axis_200_30[i] <= threshold and flag:
             if i - mark > 200:
                 couple.append(i + 200)
