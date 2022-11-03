@@ -62,17 +62,17 @@ def preprogress(marknum, calnum, start_num):
     z_axis_filter = filter(z_axis, 'highpass', 80)
 
     word_x_list, word_y_list, word_z_list = segmentation(x_axis_filter, y_axis_filter, z_axis_filter)
-    #display_word_wave(word_x_list, word_y_list, word_z_list)
+    display_word_wave(word_x_list, word_y_list, word_z_list)
     #display_word_spectrum(word_x_list, word_y_list, word_z_list)
-    #display_word_wave(word_x_list, word_y_list, word_z_list)
     #display_word_spectrogram(word_z_list[0])
     #display_smooth(z_axis)
-    PNGmakers(word_x_list, word_y_list, word_z_list, marknum, start_num)
+    #PNGmakers(word_x_list, word_y_list, word_z_list, marknum, start_num)
 
 
 if __name__ == "__main__":
-    num_list = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
-    for i in num_list:
-        preprogress(i, 30, 2900)
-        print(i)
+    # num_list = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+    # for i in num_list:
+    #     preprogress(i, 30, 2900)
+    #     print(i)
+    preprogress("zero", 30, 2900)
 
