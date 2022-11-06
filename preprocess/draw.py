@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 from scipy.fft import fft
 import numpy as np
 from scipy import signal
-from pre_smooth import smooth
-from segmentation import word_location
-from filter import filter
+from preprocess.pre_smooth import smooth
+from preprocess.segmentation import word_location
+from preprocess.filter import filter
 import librosa.core as lc
 import librosa.display
 from PIL import Image

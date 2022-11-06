@@ -1,5 +1,5 @@
-from pre_smooth import smooth
-from filter import filter
+from preprocess.pre_smooth import smooth
+from preprocess.filter import filter
 
 
 def word_location(z_axis_filter):

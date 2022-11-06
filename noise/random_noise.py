@@ -3,6 +3,9 @@ import numpy as np
 
 from preprocess.interpolation import same_means, interpolation
 from preprocess.segmentation import segmentation
+from preprocess.filter import filter
+from preprocess.draw import display_waveform
+from mixed_PNGmaker import PNGmakers
 
 
 def random_noise(input_list, input_now):
@@ -18,16 +21,19 @@ def first_order_noise(input_list, input_now):
     return random.uniform(-dec, dec)
 
 
-def first_order_mix(input_list):
-    length = len(input_list)
-    for i in range(101, length):
-        input_list[i] = first_order_noise(input_list[i-101:i-1], input_list[i])
+def first_order_mix(x_list, y_list, z_list):
+    length = len(x_list)
+    for i in range(0, length):
+        word_list_length = len(x_list[i])
+        for j in range(101, word_list_length):
+            x_list[i][j] = first_order_noise(x_list[i][j - 101:j - 1], x_list[i][j])
+            y_list[i][j] = first_order_noise(y_list[i][j - 101:j - 1], y_list[i][j])
+            z_list[i][j] = first_order_noise(z_list[i][j - 101:j - 1], z_list[i][j])
 
 
-
-if __name__ == "__main__":
-    filename = "{}-{}".format("zero", 5)
-    f = open("..\ACCELDataset\\raw\\ONEPLUS 9\\number\\{}\\{}.txt".format("zero", filename), encoding="utf-8")
+def order_mix(marknum, calnum, start_num):
+    filename = "{}-{}".format(marknum, calnum)
+    f = open("..\ACCELDataset\\raw\\ONEPLUS 9\\number\\{}\\{}.txt".format(marknum, filename), encoding="utf-8")
 
     time_axis = []
     x_axis = []
@@ -76,5 +82,14 @@ if __name__ == "__main__":
     z_axis_filter = filter(z_axis, 'highpass', 80)
 
     word_x_list, word_y_list, word_z_list = segmentation(x_axis_filter, y_axis_filter, z_axis_filter)
-    first_order_mix(word_x_list[0])
-    first_order_mix(word_y_list[0])
+    first_order_mix(word_x_list, word_y_list, word_z_list)
+    PNGmakers(word_x_list, word_y_list, word_z_list, marknum, start_num)
+
+
+if __name__ == "__main__":
+    num_list = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+    for i in num_list:
+        for j in range(5, 31):
+            order_mix(i, j, (j-1)*100)
+            print(i)
+            print(j)
