@@ -1,19 +1,33 @@
-from interpolation import same_means, interpolation
-from draw import display_waveform, display_spectrum, display_smooth, display_word_wave, display_word_spectrum
-from draw import display_word_spectrogram
-from filter import filter
-from pre_smooth import smooth
-import matplotlib.pyplot as plt
-from segmentation import word_location, segmentation
-import librosa.core as lc
-import librosa.display
+import random
 import numpy as np
-from PNGmaker import PNGmakers
+
+from preprocess.interpolation import same_means, interpolation
+from preprocess.segmentation import segmentation
 
 
-def preprogress(marknum, calnum, start_num):
-    filename = "{}-{}".format(marknum, calnum)
-    f = open("..\ACCELDataset\\raw\\ONEPLUS 9\\number\\{}\\{}.txt".format(marknum, filename), encoding="utf-8")
+def random_noise(input_list, input_now):
+    length = len(input_list)
+    max_input = max(np.absolute(input_list))
+    dec = max_input - abs(input_now)
+    return random.uniform(-dec, dec)
+
+
+def first_order_noise(input_list, input_now):
+    max_input = max(input_list)
+    dec = abs(abs(max_input) - abs(input_now))
+    return random.uniform(-dec, dec)
+
+
+def first_order_mix(input_list):
+    length = len(input_list)
+    for i in range(101, length):
+        input_list[i] = first_order_noise(input_list[i-101:i-1], input_list[i])
+
+
+
+if __name__ == "__main__":
+    filename = "{}-{}".format("zero", 5)
+    f = open("..\ACCELDataset\\raw\\ONEPLUS 9\\number\\{}\\{}.txt".format("zero", filename), encoding="utf-8")
 
     time_axis = []
     x_axis = []
@@ -62,17 +76,5 @@ def preprogress(marknum, calnum, start_num):
     z_axis_filter = filter(z_axis, 'highpass', 80)
 
     word_x_list, word_y_list, word_z_list = segmentation(x_axis_filter, y_axis_filter, z_axis_filter)
-    #display_word_wave(word_x_list, word_y_list, word_z_list)
-    #display_word_spectrum(word_x_list, word_y_list, word_z_list)
-    #display_word_spectrogram(word_z_list[0])
-    #display_smooth(z_axis)
-    #PNGmakers(word_x_list, word_y_list, word_z_list, marknum, start_num)
-
-
-if __name__ == "__main__":
-    # num_list = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
-    # for i in num_list:
-    #     preprogress(i, 30, 2900)
-    #     print(i)
-    preprogress("zero", 30, 2900)
-
+    first_order_mix(word_x_list[0])
+    first_order_mix(word_y_list[0])

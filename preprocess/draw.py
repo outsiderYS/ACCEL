@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from scipy.fft import fft
 import numpy as np
 from scipy import signal
-from smooth import smooth
+from pre_smooth import smooth
 from segmentation import word_location
 from filter import filter
 import librosa.core as lc
