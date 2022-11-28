@@ -8,7 +8,7 @@ from segmentation import word_location, segmentation
 import librosa.core as lc
 import librosa.display
 import numpy as np
-from PNGmaker import PNGmakers
+from PNGmaker import PNGmakers, PNGmaker
 
 
 def preprogress(marknum, calnum, start_num):
@@ -57,22 +57,21 @@ def preprogress(marknum, calnum, start_num):
         y_axis[i] = y_axis[i] - avarage_y
         z_axis[i] = z_axis[i] - avarage_z
 
-    x_axis_filter = filter(x_axis, 'highpass', 80)
-    y_axis_filter = filter(y_axis, 'highpass', 80)
-    z_axis_filter = filter(z_axis, 'highpass', 80)
-
-    word_x_list, word_y_list, word_z_list = segmentation(x_axis_filter, y_axis_filter, z_axis_filter)
+    # x_axis_filter = filter(x_axis, 'highpass', 80)
+    # y_axis_filter = filter(y_axis, 'highpass', 80)
+    # z_axis_filter = filter(z_axis, 'highpass', 80)
+    word_x_list, word_y_list, word_z_list = segmentation(x_axis, y_axis, z_axis)
     #display_word_wave(word_x_list, word_y_list, word_z_list)
     #display_word_spectrum(word_x_list, word_y_list, word_z_list)
     #display_word_spectrogram(word_z_list[0])
     #display_smooth(z_axis)
     PNGmakers(word_x_list, word_y_list, word_z_list, marknum, start_num)
-
+    #PNGmaker(word_x_list[0], word_y_list[0], word_z_list[0], 1, 1)
 
 if __name__ == "__main__":
-    # num_list = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
-    # for i in num_list:
-    #     preprogress(i, 30, 2900)
-    #     print(i)
-    preprogress("zero", 30, 2900)
+    num_list = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+    for i in num_list:
+        for j in range(5, 31):
+            preprogress(i, j, (j-1)*100)
+            print("{}_{} finished!".format(i, j))
 

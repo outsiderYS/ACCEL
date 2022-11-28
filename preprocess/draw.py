@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 from scipy.fft import fft
 import numpy as np
 from scipy import signal
-from preprocess.pre_smooth import smooth
-from preprocess.segmentation import word_location
-from preprocess.filter import filter
+from pre_smooth import smooth
+from segmentation import word_location
+from filter import filter
 import librosa.core as lc
 import librosa.display
 from PIL import Image
@@ -139,7 +139,7 @@ def display_word_spectrum(x_axis_list, y_axis_list, z_axis_list):
 
 def display_word_spectrogram(input_axis):
     fs = 1000
-    n_fft = 1024
+    n_fft = 128
     plt.figure(dpi=600, figsize=(10, 5))
     mag = np.abs(lc.stft(input_axis, n_fft=n_fft, hop_length=8, win_length=128, window='hamming'))
     D = librosa.amplitude_to_db(mag, ref=np.max)
