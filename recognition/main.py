@@ -63,6 +63,7 @@ def train(model, optimizer, train_dl, args):
 
             qbar.update()
 
+
 def evaluate(model, test_dl, args):
     summ = []
     model.eval()
@@ -91,6 +92,7 @@ def evaluate(model, test_dl, args):
     print(mean_metrics)
     return mean_metrics
 
+
 if __name__ == '__main__':
     args = parse_args()
 
@@ -98,8 +100,14 @@ if __name__ == '__main__':
     model = DenseNet(growth_rate=32, block_config=(6, 12, 24, 16),
                       num_init_features=64, bn_size=4, drop_rate=0.3, num_classes=args.num_classes)
 
+    # if args.cuda:
+    #     model = model.cuda()
+    #     print('cuda_weights')
 
-    if args.cuda:
+    if torch.cuda.device_count() > 1:  # 检查电脑是否有多块GPU
+        print(f"Let's use {torch.cuda.device_count()} GPUs!")
+        model = nn.DataParallel(model.cuda())  # 将模型对象转变为多GPU并行运算的模型
+    else:
         model = model.cuda()
         print('cuda_weights')
 
