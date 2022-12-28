@@ -35,6 +35,8 @@ def spectrogram_list(input_axis, n_fft=1024):
 
 
 def image_get(accel):
+    length = int(accel[2, -1:].item())
+    accel = accel[:, 0:length]
     accel = torch.stft(accel, 256, 8, 128, window=torch.hamming_window(128))
     accel = accel[:, :, :, 0] * accel[:, :, :, 0] + accel[:, :, :, 1] * accel[:, :, :, 1]
     accel.sqrt()
@@ -54,8 +56,7 @@ def image_get(accel):
 
 def images_get(accel):
     images = []
-    tensor_trans = transforms.Compose([transforms.Resize(size=(224, 224), interpolation=3),
-                                       transforms.ToTensor()])
+
     for i in accel:
         image = image_get(i)
         # image_arr = np.array(image)

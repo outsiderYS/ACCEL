@@ -8,10 +8,8 @@ from PIL import Image
 import torchvision.transforms as transforms
 import torch.nn as nn
 import trainset
-import librosa.core as lc
 import math as mt
 from torchvision.models.densenet import DenseNet
-from preprocess.filter import filter
 from advGAN import AccelAdv
 
 
@@ -60,7 +58,7 @@ if __name__ == '__main__':
                                              batch_size=32,
                                              shuffle=True,
                                              num_workers=1,
-                                             drop_last=False)
+                                             drop_last=True)
 
     accelAdv = AccelAdv(device, targeted_model, model_num_labels, 3, -0.5, 0.5)
 

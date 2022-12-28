@@ -139,7 +139,6 @@ class MultiDatasetFeeder(torch.utils.data.Dataset):
             return data, label
 
 
-
 class ImageFeeder:
 
     def __init__(self, label=None):

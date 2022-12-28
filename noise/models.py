@@ -121,7 +121,6 @@ class Generator1D(nn.Module):
         x = x.view(B, self.base_channel, self.base_size)
         x = self.blocks(x)
         x = self.out_layer(x)
-        print(x.shape)
         #x = self.blocks(x)
         return x.view(B, -1)
 

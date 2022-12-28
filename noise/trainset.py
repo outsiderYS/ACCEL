@@ -78,9 +78,11 @@ def wav_get(wavnames, rootdir):
         wav = [[data_x, data_y, data_z], label_switch(i[0])]
         wavs.append(wav)
     for i in wavs:
-        i[0][0] += [0.0] * (max_length - len(i[0][0]))
-        i[0][1] += [0.0] * (max_length - len(i[0][1]))
-        i[0][2] += [0.0] * (max_length - len(i[0][2]))
+        ac_len = len(i[0][0])
+        i[0][0] += [0.0] * (max_length - ac_len)
+        i[0][1] += [0.0] * (max_length - ac_len)
+        i[0][2] += [0.0] * (max_length - ac_len)
+        i[0][2][-1] = float(ac_len)
     return wavs
 
 

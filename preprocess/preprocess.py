@@ -68,6 +68,7 @@ def preprogress(marknum, calnum, start_num):
     PNGmakers(word_x_list, word_y_list, word_z_list, marknum, start_num)
     #PNGmaker(word_x_list[0], word_y_list[0], word_z_list[0], 1, 1)
 
+
 if __name__ == "__main__":
     num_list = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
     for i in num_list:

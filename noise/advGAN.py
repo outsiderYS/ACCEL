@@ -7,12 +7,10 @@ import torchvision
 import os
 import PIL.Image as Image
 import math as mt
-from preprocess.filter import filter
-import librosa.core as lc
 import torchvision.transforms as transforms
 
 models_path = '../recognition/model'
-gen_path = './model'
+gen_path = './model/'
 
 
 # custom weights initialization called on netG and netD
@@ -25,11 +23,6 @@ def weights_init(m):
         nn.init.constant_(m.bias.data, 0)
     elif classname.find('Linear') != -1:
         nn.init.normal_(m.weight.data, std=0.1)
-
-
-def spectrogram_list(input_axis, n_fft=1024):
-    mag = np.abs(lc.stft(input_axis, n_fft=n_fft, hop_length=8, win_length=128, window='hamming'))
-    return mag
 
 
 def image_get(accel):
